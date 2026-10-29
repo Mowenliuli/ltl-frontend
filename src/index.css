@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  height: 100%;
+  /* 禁止移动端双击缩放延迟 & 长按选中干扰 */
+  touch-action: manipulation;
+}
+
+body {
+  @apply bg-gray-100 text-gray-900 dark:bg-night-900 dark:text-gray-100;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+/* 细滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-gray-300 dark:bg-night-600;
+}
+
+/* 安全区适配（iPhone 刘海/底部横条） */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.safe-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+/* 语音条动画：声波纹（播放时起伏） */
+@keyframes voice-wave {
+  0%, 100% { transform: scaleY(0.35); }
+  50% { transform: scaleY(1); }
+}
+.voice-bar {
+  display: inline-block;
+  width: 3px;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: 0.35;
+  transition: opacity 0.15s;
+  transform-origin: bottom;
+}
+.voice-bar.lit { opacity: 1; }
+.voice-bars.is-playing .voice-bar {
+  animation: voice-wave 0.9s ease-in-out infinite;
+}
+.voice-bars.is-playing .voice-bar:nth-child(1) { animation-delay: 0s; }
+.voice-bars.is-playing .voice-bar:nth-child(2) { animation-delay: 0.12s; }
+.voice-bars.is-playing .voice-bar:nth-child(3) { animation-delay: 0.24s; }
+.voice-bars.is-playing .voice-bar:nth-child(4) { animation-delay: 0.36s; }
+.voice-bars.is-playing .voice-bar:nth-child(5) { animation-delay: 0.48s; }
